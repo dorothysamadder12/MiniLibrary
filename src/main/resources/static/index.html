@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniLibrary | Your Reading Space</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f7f6f2;
+            color: #202c25;
+        }
+
+        header {
+            background: #173e32;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: -1px;
+        }
+
+        .brand span {
+            color: #b9d6a6;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #d5e3da;
+            font-size: 13px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 42px 24px 70px;
+        }
+
+        .hero {
+            margin-bottom: 35px;
+        }
+
+        .eyebrow {
+            color: #49785c;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            margin: 12px 0;
+            font-size: clamp(30px, 5vw, 46px);
+            letter-spacing: -1.8px;
+        }
+
+        .subtitle {
+            color: #68736c;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            max-width: 680px;
+            margin-top: 25px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 17px;
+            border: 1px solid #d8ded7;
+            border-radius: 12px;
+            font-size: 15px;
+            background: white;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #447a58;
+            box-shadow: 0 0 0 3px #447a5820;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 17px;
+            font-weight: 650;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .primary {
+            color: white;
+            background: #245740;
+        }
+
+        .secondary {
+            color: #245740;
+            background: #e5eee5;
+        }
+
+        .danger {
+            color: #a13f39;
+            background: #fae9e6;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 38px 0 18px;
+        }
+
+        h2 {
+            font-size: 23px;
+            letter-spacing: -0.6px;
+            margin: 0;
+        }
+
+        .count {
+            color: #6c796f;
+            font-size: 13px;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+            gap: 20px;
+        }
+
+        .book-card {
+            min-width: 0;
+            background: white;
+            border: 1px solid #e7e8e2;
+            border-radius: 17px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 15px #233d2a08;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px #233d2a12;
+        }
+
+        .cover-wrap {
+            height: 205px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 17px;
+            background: #f1f2eb;
+            border-radius: 11px;
+            overflow: hidden;
+        }
+
+        .cover {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .book-card h3 {
+            font-size: 16px;
+            line-height: 1.45;
+            margin: 0 0 7px;
+        }
+
+        .author {
+            color: #69756c;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 12px;
+        }
+
+        .description {
+            font-size: 13px;
+            color: #657069;
+            line-height: 1.6;
+            margin: 0 0 17px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            font-size: 12px;
+            padding: 11px 8px;
+        }
+        
+.status-control {
+    flex: 1;
+    min-width: 0;
+}
+
+.status-control label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #68736c;
+}
+
+.status-select {
+    width: 100%;
+    padding: 10px 7px;
+    border: 1px solid #d8ded7;
+    border-radius: 9px;
+    background: white;
+    color: #245740;
+    font-size: 12px;
+}
+
+
+        .message {
+            padding: 15px 17px;
+            border-radius: 10px;
+            background: #eaf0e8;
+            color: #345943;
+            margin: 18px 0;
+            line-height: 1.5;
+        }
+
+        .empty {
+            padding: 35px 20px;
+            text-align: center;
+            background: white;
+            border: 1px dashed #cfd8cc;
+            border-radius: 15px;
+            color: #6d786e;
+            line-height: 1.7;
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            color: #788078;
+            font-size: 12px;
+            padding: 25px;
+            border-top: 1px solid #e2e5de;
+        }
+
+        @media (max-width: 520px) {
+            main {
+                padding: 30px 16px 50px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                padding: 14px;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .book-card {
+                padding: 10px;
+            }
+
+            .cover-wrap {
+                height: 155px;
+            }
+
+            .card-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <div>
+        <div class="brand">Mini<span>Library</span> 📚</div>
+        <p>A little space for your next big read.</p>
+    </div>
+    <button class="secondary" onclick="loadSavedBooks()">
+        My Library
+    </button>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="eyebrow">Discover · Collect · Read</div>
+        <h1>Find your next favourite book.</h1>
+        <p class="subtitle">
+            Explore books from around the world and build your own
+            personal reading collection.
+        </p>
+
+        <form class="search-box" id="searchForm">
+            <input
+                id="query"
+                type="search"
+                placeholder="Try Java, fantasy, or Harry Potter..."
+                required
+            >
+            <button class="primary" id="searchButton" type="submit">
+                Search books →
+            </button>
+        </form>
+
+        <div id="message" aria-live="polite"></div>
+    </section>
+
+    <section>
+        <div class="section-heading">
+            <h2>Search results</h2>
+            <span class="count" id="resultCount"></span>
+        </div>
+        <div id="results" class="book-grid">
+            <div class="empty">
+                Search for a title or author to discover books.
+            </div>
+        </div>
+    </section>
+
+    <section id="library">
+        <div class="section-heading">
+            <h2>My reading library</h2>
+            <span class="count" id="savedCount">Loading...</span>
+        </div>
+        <div id="saved" class="book-grid">
+            <div class="empty">Loading your library...</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    MiniLibrary · Built with Java, Spring Boot and PostgreSQL
+</footer>
+
+<script>
+    const resultsElement = document.getElementById("results");
+    const savedElement = document.getElementById("saved");
+    const messageElement = document.getElementById("message");
+    const searchButton = document.getElementById("searchButton");
+
+    const searchResults = new Map();
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+    function showMessage(text) {
+        messageElement.innerHTML =
+            `<div class="message">${escapeHtml(text)}</div>`;
+    }
+
+    function getCover(url) {
+        if (!url) return "";
+        return url.replace(/^http:/i, "https:");
+    }
+
+    function coverHtml(url) {
+        if (!url) {
+            return '<div class="cover-placeholder">📚</div>';
+        }
+
+        return `<img class="cover"
+                     src="${escapeHtml(getCover(url))}"
+                     alt="Book cover"
+                     onerror="this.style.display='none'">`;
+    }
+
+    function renderCard(book, savedBook = false) {
+        const id = savedBook ? book.id : book.googleBooksId;
+        const key = escapeHtml(id ?? "");
+        const title = escapeHtml(book.title || "Untitled");
+        const authors = escapeHtml(book.authors || "Author unknown");
+        const description = escapeHtml(book.description || "No description available.");
+        const thumbnail = book.thumbnail || "";
+        
+const currentStatus = book.status || "WANT_TO_READ";
+
+const action = savedBook
+    ? `
+        <div class="status-control">
+            <label for="status-${key}">Reading status</label>
+            <select id="status-${key}" class="status-select"
+                    data-status-id="${key}">
+                <option value="WANT_TO_READ"
+                    ${currentStatus === "WANT_TO_READ" ? "selected" : ""}>
+                    Want to Read
+                </option>
+                <option value="READING"
+                    ${currentStatus === "READING" ? "selected" : ""}>
+                    Currently Reading
+                </option>
+                <option value="COMPLETED"
+                    ${currentStatus === "COMPLETED" ? "selected" : ""}>
+                    Completed
+                </option>
+            </select>
+        </div>
+        <button class="danger" data-delete-id="${key}">Remove</button>
+      `
+    : `<button class="primary" data-save-id="${key}">Save book</button>`;
+
+
+        return `
+            <article class="book-card">
+                <div class="cover-wrap">${coverHtml(thumbnail)}</div>
+                <h3>${title}</h3>
+                <p class="author">by ${authors}</p>
+                <p class="description">${description}</p>
+                <div class="card-actions">${action}</div>
+            </article>
+        `;
+    }
+
+    async function searchBooks(query) {
+        searchButton.disabled = true;
+        searchButton.textContent = "Searching...";
+        resultsElement.innerHTML =
+            '<div class="empty">Searching the book catalogue...</div>';
+        document.getElementById("resultCount").textContent = "";
+
+        try {
+            const response = await fetch(
+                `/api/books/search?query=${encodeURIComponent(query)}`
+            );
+
+            if (!response.ok) {
+                throw new Error(`Search failed (HTTP ${response.status}).`);
+            }
+
+            const data = await response.json();
+
+            if (data.message) {
+                throw new Error(data.message);
+            }
+
+            const items = data.items || [];
+            searchResults.clear();
+
+            items.forEach(item => searchResults.set(item.id, item));
+
+            if (items.length === 0) {
+                resultsElement.innerHTML =
+                    '<div class="empty">No books found. Try another search.</div>';
+                return;
+            }
+
+            resultsElement.innerHTML = items.map(item => {
+                const info = item.volumeInfo || {};
+
+                return renderCard({
+                    googleBooksId: item.id,
+                    title: info.title,
+                    authors: (info.authors || []).join(", "),
+                    description: info.description,
+                    thumbnail: info.imageLinks?.thumbnail,
+                    category: (info.categories || []).join(", ")
+                });
+            }).join("");
+
+            document.getElementById("resultCount").textContent =
+                `${items.length} books found`;
+
+        } catch (error) {
+            resultsElement.innerHTML =
+                '<div class="empty">We could not load search results.</div>';
+            showMessage(
+                error.message.includes("rate limit")
+                    ? "Google Books is temporarily limiting requests. Your saved library still works—try search again later."
+                    : error.message
+            );
+        } finally {
+            searchButton.disabled = false;
+            searchButton.textContent = "Search books →";
+        }
+    }
+
+    async function loadSavedBooks() {
+        try {
+            const response = await fetch("/api/books/saved");
+
+            if (!response.ok) {
+                throw new Error("Could not load your saved books.");
+            }
+
+            const books = await response.json();
+
+            document.getElementById("savedCount").textContent =
+                `${books.length} saved`;
+
+            if (books.length === 0) {
+                savedElement.innerHTML = `
+                    <div class="empty">
+                        Your library is waiting for its first book.
+                        Search above and save something you love.
+                    </div>`;
+                return;
+            }
+
+            savedElement.innerHTML =
+                books.map(book => renderCard(book, true)).join("");
+
+        } catch (error) {
+            savedElement.innerHTML =
+                '<div class="empty">Could not load your library. Check the backend.</div>';
+            showMessage(error.message);
+        }
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+        event.preventDefault();
+        messageElement.innerHTML = "";
+        searchBooks(document.getElementById("query").value.trim());
+    });
+
+    document.addEventListener("click", async event => {
+        const saveButton = event.target.closest("[data-save-id]");
+        const deleteButton = event.target.closest("[data-delete-id]");
+
+        if (saveButton) {
+            const item = searchResults.get(saveButton.dataset.saveId);
+
+            if (!item) return;
+
+            const info = item.volumeInfo || {};
+
+            const book = {
+                googleBooksId: item.id,
+                title: info.title || "Untitled",
+                authors: (info.authors || []).join(", "),
+                description: info.description || "",
+                thumbnail: info.imageLinks?.thumbnail || "",
+                category: (info.categories || []).join(", ")
+            };
+
+            saveButton.disabled = true;
+
+            try {
+                const response = await fetch("/api/books/save", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(book)
+                });
+
+                if (!response.ok) {
+                    throw new Error("The book could not be saved.");
+                }
+
+                showMessage(`Saved "${book.title}" to your library.`);
+                await loadSavedBooks();
+
+            } catch (error) {
+                showMessage(error.message);
+            } finally {
+                saveButton.disabled = false;
+            }
+        }
+
+        if (deleteButton) {
+            const id = deleteButton.dataset.deleteId;
+
+            if (!confirm("Remove this book from your library?")) return;
+
+            try {
+                const response = await fetch(`/api/books/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!response.ok) {
+                    throw new Error("The book could not be removed.");
+                }
+
+                showMessage("Book removed from your library.");
+                await loadSavedBooks();
+
+            } catch (error) {
+                showMessage(error.message);
+            }
+        }
+    });
+    
+document.addEventListener("change", async event => {
+    const select = event.target.closest("[data-status-id]");
+
+    if (!select) return;
+
+    const id = select.dataset.statusId;
+    const status = select.value;
+
+    select.disabled = true;
+
+    try {
+        const response = await fetch(
+            `/api/books/${id}/status?status=${encodeURIComponent(status)}`,
+            { method: "PATCH" }
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not update the reading status.");
+        }
+
+        showMessage(
+            `Reading status updated to ${status.replace(/_/g, " ")}.`
+        );
+
+        await loadSavedBooks();
+
+    } catch (error) {
+        showMessage(error.message);
+        await loadSavedBooks();
+    }
+});
+
+
+    loadSavedBooks();
+</script>
+</body>
+</html>
